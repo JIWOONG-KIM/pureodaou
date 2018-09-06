@@ -5,9 +5,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,9 +40,9 @@ public class ExamController {
 
 	@RequestMapping(value = "/user/examStart.do")
 	public ModelAndView examStart(@RequestParam("degree") String str, HttpServletRequest req) {
-//		HttpSession session = req.getSession(false);
-//		String id = (String) session.getAttribute("id");
-		String id = "90100";
+		HttpSession session = req.getSession(false);
+		String id = (String) session.getAttribute("e_id");
+//		String id = "90100";
 		int degree = Integer.parseInt(str);
 		ExamListVO listVO = examService.getQnum(degree);
 		ModelAndView mav = new ModelAndView();
@@ -67,9 +69,9 @@ public class ExamController {
 		int ox_num = Integer.parseInt(ox);
 		int obj_num = Integer.parseInt(obj);
 		req.setAttribute("degree", degree);
-//		HttpSession session = req.getSession(false);
-//		String id = (String) session.getAttribute("id");
-		String id = "90100";
+		HttpSession session = req.getSession(false);
+		String id = (String) session.getAttribute("e_id");
+//		String id = "90100";
 
 		int cnt = examService.getPersence(id, degree);
 		if (cnt == 0) {
@@ -118,9 +120,9 @@ public class ExamController {
 	@RequestMapping(value = "/user/exam/getExam.do")
 	public ModelAndView getExam(HttpServletRequest req) {// 아직 보기 순서 안섞임
 		int degree = (Integer) req.getAttribute("degree");
-//		HttpSession session = req.getSession(false);
-//		String id = (String) session.getAttribute("id");
-		String id = "90100";
+		HttpSession session = req.getSession(false);
+		String id = (String) session.getAttribute("e_id");
+//		String id = "90100";
 		ModelAndView mav = new ModelAndView("user/exam/examTest");
 		List<ProblemVO> plist = examService.getExam(id, degree);
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -141,9 +143,9 @@ public class ExamController {
 
 	@RequestMapping(value = "user/exam/tempstrg")
 	public ModelAndView tempStorage(HttpServletRequest req) {
-//		HttpSession session = req.getSession(false);
-//		String id = (String)session.getAttribute("id");
-		String id = "90100"; // 테스트용 임시ID 변수
+		HttpSession session = req.getSession(false);
+		String id = (String) session.getAttribute("e_id");
+//		String id = "90100"; // 테스트용 임시ID 변수
 		ModelAndView mav = new ModelAndView("user/exam/tempStrgResult");
 //		examService.tempRegist();
 		return mav;
@@ -151,10 +153,17 @@ public class ExamController {
 
 	@RequestMapping(value = "/user/exam/regist.do")
 	@ResponseBody
-	public String finalRegist(@RequestBody List<Map<String,Object>> list) {
-			System.out.println("1");
-			System.out.println(list);
-			
-			return "user/exam/exam";
+	public String regist(HttpServletRequest req, @RequestBody List<Map<String, Object>> list) {
+		HttpSession session = req.getSession(false);
+		String id = (String) session.getAttribute("e_id");
+		System.out.println("1");
+		System.out.println(list);
+		for (Map<String, Object> map : list) {
+			Set<String> keys = map.keySet();
+			System.out.println(keys.toString());
+		}
+//		examService.mappingAnswer();
+
+		return "user/exam/exam";
 	}
 }

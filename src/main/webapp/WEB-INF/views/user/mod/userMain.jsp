@@ -24,8 +24,9 @@
 <script type="text/javascript">
 
 	function goExamMain(){
-		$("#menu").attr("action", "examMain");
-		$("#menu").submit();
+		/* $("#menu").attr("action", "examMain");
+		$("#menu").submit(); */
+		location.href="${pageContext.request.contextPath}/user/examMain.do";
 	}
 	function goExamRecord(){
 		$("#menu").attr("action", "examRecord");
@@ -54,15 +55,15 @@
 		<input type="submit" id="logout_btn"  value="로그아웃" onclick="goUserLogout();"> 
 	</div>
 	<div class="btn_area">
-    	<input type="submit" id="examMain_btn" class="btn" value="시험 보기" onclick="goExamMain();"> 
+    	<input type="button" id="examMain_btn" class="btn" value="시험 보기" onclick="goExamMain();"> 
     </div>
     	<br></br>
     <div class="btn_area">
-    	<input type="submit" id="examRecord_btn" class="btn" value="기록 보기" onclick="goExamRecord();"> 
+    	<input type="button" id="examRecord_btn" class="btn" value="기록 보기" onclick="goExamRecord();"> 
     </div>
     	<br></br>
     <div class="btn_area">
-    	<input type="submit" id="userBoard_btn" class="btn" value="게시판" onclick="goUserBoard();"> 
+    	<input type="button" id="userBoard_btn" class="btn" value="게시판" onclick="goUserBoard();"> 
     </div>
 </form>
     

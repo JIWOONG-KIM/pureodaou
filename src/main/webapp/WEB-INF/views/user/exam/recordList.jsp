@@ -21,8 +21,8 @@
 	/* $('.btn').on.click(function(){
 		
 	}) */
-	var go = function(degree){
-		location.href="${pageContext.request.contextPath}/user/examStart.do?degree="+degree;
+	var go = function(degree) {
+		location.href = "";
 	}
 </script>
 </head>
@@ -31,9 +31,9 @@
 		<div class="topbox"
 			style="background-color: #114a9b; color: white; font-size: 16px; padding: 10px;">
 			<ul>
-				<li>각 개월차 평가(과제/시험)는 정해진 참여기간 내에 응시 하셔야 하며, 미참여시 미수료 됩니다.</li>
-				<li>각 평가당 총점 60점 이상(100점 만점 기준)이어야 수료됩니다.</li>
-				<li>평가 기록은 학습장 첫 페이지의 [기록보기]를 확인하시기 바랍니다.</li>
+				<li>각 평가의 점수와 답안을 확인 가능합니다</li>
+				<li>각 평가당 총점 60점 이상(100점 만점 기준)이어야 수료입니다.</li>
+				<li>특이사항 혹은 오류에 관해서는 문의게시판 이용 부탁드립니다.</li>
 			</ul>
 		</div>
 		<div class="midbox"
@@ -42,20 +42,28 @@
 				<tr style="background-color: #DDDDDD">
 					<th>회차</th>
 					<th>카테고리</th>
-					<th>기간</th>
+					<th>본 날짜</th>
 					<th>유형</th>
-					<th>총점</th>
-					<th>평가</th>
+					<th>점수</th>
+					<th>오답노트</th>
 				</tr>
 				<c:forEach items="${elist }" var="e">
 					<tr>
-						<td>${e.exam_test_no }</td>
+						<td>$</td>
 						<td>정보보안</td>
-						<td>${e.s_date }~${e.e_date }</td>
+						<td></td>
 						<td>평가</td>
 						<td>100</td>
-						<td><input class="btn btn-primary" id="${e.exam_test_no }"
-							type="button" value="참여하기" onclick="javascript:go(${e.exam_test_no})"></td>
+						<c:choose>
+							<c:if test="">
+								<td>미완료</td>
+							</c:if>
+							<c:otherwise>
+								<td><input class="btn btn-primary" id="${e.exam_test_no }"
+									type="button" value="" onclick="javascript:go()"></td>
+							</c:otherwise>
+						</c:choose>
+
 					</tr>
 				</c:forEach>
 			</table>

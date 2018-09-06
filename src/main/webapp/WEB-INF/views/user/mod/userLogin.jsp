@@ -24,7 +24,7 @@
 			alert("비밀번호를 입력해주세요.");
 		}
 		else{
-			$("#login").attr("action", "goUserLogin");
+			$("#login").attr("action", "${pageContext.request.contextPath}/user/goUserLogin");
 			$("#login").submit();
 		}
 	}

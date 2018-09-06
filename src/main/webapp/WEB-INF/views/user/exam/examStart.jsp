@@ -62,7 +62,6 @@ var startexam = function(degree,ox,obj){
 					<th>문항수</th>
 					<th>배점</th>
 					<th>총점</th>
-					<th>점수</th>
 					<th>비고</th>
 				</tr>
 				<tr>
@@ -71,7 +70,6 @@ var startexam = function(degree,ox,obj){
 					<td>${listVO.ox_num }</td>
 					<td>10</td>
 					<td rowspan="2">100</td>
-					<td rowspan="2"></td>
 					<td rowspan="2">각 과제의 총점이 60점 미만(100점 만점 기준)의 경우 미수료</td>
 				</tr>
 				<tr>

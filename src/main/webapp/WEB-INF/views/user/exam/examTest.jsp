@@ -73,6 +73,9 @@ input[type=radio] {
 			data['answer'] = $(this).val();
 			answer.push(data);
 		});
+		data = new Object();
+		data['type'] = degree;
+		answer.push(data);
 		var jsonEncode = JSON.stringify(answer);
 		 $.ajax({
 			url : '${pageContext.request.contextPath}/user/exam/regist.do',
