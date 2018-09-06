@@ -1,5 +1,7 @@
 package com.daou.pd.admin.board;
 
+import java.util.List;
+
 public interface BoardMapper {
-	public BoardVO test();
+	public List<BoardVO> boardList();
 }

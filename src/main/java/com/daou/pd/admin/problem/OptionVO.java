@@ -1,43 +1,15 @@
 package com.daou.pd.admin.problem;
 
-import java.sql.Date;
-
 public class OptionVO {
-//	option_seq int primary key auto_increment,
-//	problem_seq int,
-//	option_contents varchar(500),
-//	answer_yn varchar(100),
-//	reg_id varchar(100),
-//	reg_date date,
-//	upt_id varchar(100),
-//	upt_date date,
-//	foreign key (problem_seq) references problem_info(problem_seq),
-//	foreign key (reg_id) references employee(e_id)
-
 	private int option_seq;
 	private int problem_seq;
 	private String option_contents;
 	private String answer_yn;
 	private String reg_id;
-	private Date reg_date;
+	private String reg_date;
 	private String upt_id;
-	private Date upt_date;
-
-	public OptionVO() {
-	}
-
-	public OptionVO(int option_seq, int problem_seq, String option_contents, String answer_yn, String reg_id,
-			Date reg_date, String upt_id, Date upt_date) {
-		super();
-		this.option_seq = option_seq;
-		this.problem_seq = problem_seq;
-		this.option_contents = option_contents;
-		this.answer_yn = answer_yn;
-		this.reg_id = reg_id;
-		this.reg_date = reg_date;
-		this.upt_id = upt_id;
-		this.upt_date = upt_date;
-	}
+	private String upt_date;
+	private int option_su;
 
 	public int getOption_seq() {
 		return option_seq;
@@ -79,11 +51,11 @@ public class OptionVO {
 		this.reg_id = reg_id;
 	}
 
-	public Date getReg_date() {
+	public String getReg_date() {
 		return reg_date;
 	}
 
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
 
@@ -95,19 +67,20 @@ public class OptionVO {
 		this.upt_id = upt_id;
 	}
 
-	public Date getUpt_date() {
+	public String getUpt_date() {
 		return upt_date;
 	}
 
-	public void setUpt_date(Date upt_date) {
+	public void setUpt_date(String upt_date) {
 		this.upt_date = upt_date;
 	}
 
-	@Override
-	public String toString() {
-		return "OptionVO [option_seq=" + option_seq + ", problem_seq=" + problem_seq + ", option_contents="
-				+ option_contents + ", answer_yn=" + answer_yn + ", reg_id=" + reg_id + ", reg_date=" + reg_date
-				+ ", upt_id=" + upt_id + ", upt_date=" + upt_date + "]";
+	public int getOption_su() {
+		return option_su;
+	}
+
+	public void setOption_su(int option_su) {
+		this.option_su = option_su;
 	}
 
 }

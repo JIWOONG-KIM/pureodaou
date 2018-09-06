@@ -37,6 +37,7 @@ input[type=radio] {
 		alert("복사 방지를 위해 오른쪽 버튼은 사용하실 수 없습니다.");
 		return false;
 	}
+	
 	function LockF5(e) {
 		var key = (e) ? e.keyCode : event.keyCode;
 		if ((key == 67 && event.ctrlKey) || (key == 86 && event.ctrlKey)) {
@@ -58,18 +59,44 @@ input[type=radio] {
 		}
 	}
 	document.onkeydown = LockF5;
-
-	$('#tempstrg').click(function() {
-		$.ajax({
+	
+	var submitFunction = function(degree) {
+		if($('.mark').html()<10){
+			alert('아직 모든 문제를 풀지 않으셨습니다');
+			return false;
+		}
+		alert('제출');
+		var answer = new Array();
+		$('input[type=radio]:checked').each(function(){
+			data = new Object();
+			data['problem'] = $(this).attr('id');
+			data['answer'] = $(this).val();
+			answer.push(data);
+		});
+		var jsonEncode = JSON.stringify(answer);
+		 $.ajax({
+			url : '${pageContext.request.contextPath}/user/exam/regist.do',
+			datatype:'json',
 			method : 'post',
-			url : '${pageContext.request.contextPath}/user/exam/tempstrg.do',
-			data : $('#f').serialize(),
-			success : function() {
-				alert('임시 저장 되었습니다');
+			data : jsonEncode,
+			processData : true,
+			contentType :'application/json; charset=UTF-8',
+			success : function(data) {
+				alert('제출 되었습니다');
 			},
 			error : function() {
-				alert('임시저장 실패');
+				alert('제출 실패');
 			}
+		});
+	}
+
+	$(function(){
+		$('input[type=radio]').change(function() {
+			var cnt = 0;
+			$('input[type=radio]:checked').each(function(){
+				cnt++;
+			});
+			$('.mark').html(cnt);
 		});
 	});
 </script>
@@ -80,11 +107,12 @@ input[type=radio] {
 		<div class="topbox"
 			style="background-color: #114a9b; color: white; font-size: 16px; padding: 10px;">
 			<ul>
+				<li>${map.exam_test_no }회차과제</li>
 				<li>카테고리 : 정보보안</li>
 				<li>기간 : 2018-09-01 ~ 2018-09-10</li>
 			</ul>
 		</div>
-		<form name="f">
+		<form id="f">
 			<div class="midbox"
 				style="border-style: solid; border-width: 1px; padding: 25px; margin-bottom: 60px;">
 
@@ -103,8 +131,10 @@ input[type=radio] {
 									<div style="padding-left: 20px;">${pVO.problem }</div>
 								</div>
 								<div style="padding: 20px;">
-									<input type="radio" name="${status.count }" value="O">O<br>
-									<input type="radio" name="${status.count }" value="X">X
+									<input id="${pVO.problem_seq }" type="radio"
+										name="${status.count }" value="O">O<br> <input
+										id="${pVO.problem_seq }" type="radio" name="${status.count }"
+										value="X">X
 								</div>
 							</div>
 						</c:when>
@@ -121,9 +151,9 @@ input[type=radio] {
 									<div style="padding-left: 20px;">${pVO.problem }</div>
 								</div>
 								<div style="padding: 20px;">
-									<c:forEach items="${pVO.ovo }" var="op">
-										<input type="radio" name="${status.count }"
-											value="${op.option_seq }">${op.option_contents }<br>
+									<c:forEach items="${pVO.ovo }" var="op" varStatus="status2">
+										<input id="${pVO.problem_seq }" type="radio"
+											name="${status.count }" value="${op.option_seq }">(${status2.count}) ${op.option_contents }<br>
 									</c:forEach>
 								</div>
 							</div>
@@ -134,9 +164,10 @@ input[type=radio] {
 		</form>
 	</div>
 	<div class="footer">
-		<input class="btn btn-primary" type="button" value="임시저장"
-			name="tempstrg"> <input class="btn btn-primary" type="submit"
-			value="제출하기">
+		<span class="mark">0</span>/10 <input class="btn btn-primary"
+			type="button" value="임시저장" id="tempstrg"> <input
+			class="btn btn-primary" type="button" value="제출하기"
+			onclick="javascript:submitFunction(${map.exam_test_no })">
 	</div>
 </body>
 </html>

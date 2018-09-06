@@ -29,6 +29,11 @@ table {
 	border-color: #999999;
 }
 </style>
+<script>
+var startexam = function(degree,ox,obj){
+	location.href="${pageContext.request.contextPath}/user/examTest.do?degree="+degree+"&ox_num="+ox+"&obj_num="+obj;
+}
+</script>
 </head>
 <body>
 	<div style="padding-left: 25%; padding-right: 25%; padding-top: 20px;">
@@ -44,7 +49,7 @@ table {
 				</tr>
 				<tr>
 					<th>제출상태</th>
-					<td>미제출</td>
+					<td>${status }</td>
 				</tr>
 				<tr>
 					<th>점수</th>
@@ -63,7 +68,7 @@ table {
 				<tr>
 					<th rowspan="2">과제</th>
 					<th>OX형</th>
-					<td>5</td>
+					<td>${listVO.ox_num }</td>
 					<td>10</td>
 					<td rowspan="2">100</td>
 					<td rowspan="2"></td>
@@ -71,7 +76,7 @@ table {
 				</tr>
 				<tr>
 					<th>객관식</th>
-					<td>5</td>
+					<td>${listVO.obj_num }</td>
 					<td>10</td>
 				</tr>
 			</table>
@@ -85,7 +90,7 @@ table {
 					<li>최종제출 버튼을 클릭하셔야 과제 제출이 완료 됩니다.</li>
 				</ul>
 			</div>
-			<input class="btn btn-primary" type="button" value="평가 시작하기">
+			<input class="btn btn-primary" type="button" value="평가 시작하기" onclick="javascript:startexam(${listVO.exam_test_no},${listVO.ox_num },${listVO.obj_num })">
 		</div>
 	</div>
 </body>

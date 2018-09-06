@@ -1,5 +1,7 @@
 package com.daou.pd.admin.board;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
@@ -16,8 +18,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardVO test() {
+	public List<BoardVO> boardList(BoardVO bvo) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
-		return boardMapper.test();
+		return boardMapper.boardList();
 	}
 }

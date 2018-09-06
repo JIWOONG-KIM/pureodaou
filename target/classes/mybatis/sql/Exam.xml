@@ -29,13 +29,17 @@
 	</select>
 
 	<select id="getOxList"
-		resultType="com.daou.pd.admin.problem.ProblemVO" parameterType="Integer">
-		select * from problem_info where type=1 order by rand() limit #{cnt}
+		resultType="com.daou.pd.admin.problem.ProblemVO"
+		parameterType="Integer">
+		select * from problem_info where type=1 order by rand()
+		limit #{cnt}
 	</select>
 
 	<select id="getObjList"
-		resultType="com.daou.pd.admin.problem.ProblemVO" parameterType="Integer">
-		select * from problem_info where type=2 order by rand() limit #{cnt}
+		resultType="com.daou.pd.admin.problem.ProblemVO"
+		parameterType="Integer">
+		select * from problem_info where type=2 order by rand()
+		limit #{cnt}
 	</select>
 
 	<select id="getPersence" parameterType="hashmap"
@@ -45,31 +49,56 @@
 	</select>
 
 	<insert id="insertExam" parameterType="java.util.Map">
-		insert into exam_info (exam_test_no, problem_seq, reg_id, option1, option2, option3, option4, reg_date) values
+		insert into exam_info (exam_test_no, problem_seq, reg_id, option1,
+		option2, option3, option4, reg_date) values
 		<foreach collection="examList" item="exam" separator=",">
-			(#{exam.exam_test_no}, #{exam.problem_seq}, #{exam.reg_id}, #{exam.option1, jdbcType=INTEGER}, #{exam.option2, jdbcType=INTEGER} ,#{exam.option3, jdbcType=INTEGER}, #{exam.option4, jdbcType=INTEGER}, sysdate())
+			(#{exam.exam_test_no}, #{exam.problem_seq}, #{exam.reg_id},
+			#{exam.option1, jdbcType=INTEGER}, #{exam.option2, jdbcType=INTEGER}
+			,#{exam.option3, jdbcType=INTEGER}, #{exam.option4,
+			jdbcType=INTEGER}, sysdate())
 		</foreach>
 	</insert>
-	
-	<select id="getexamList" parameterType="hashmap" resultType="com.daou.pd.admin.problem.ProblemVO">
-		select distinct p.* from exam_info e, problem_info p where p.problem_seq = e.problem_seq and e.reg_id = #{reg_id} and e.exam_test_no = #{exam_test_no}
+
+	<select id="getexamList" parameterType="hashmap"
+		resultType="com.daou.pd.admin.problem.ProblemVO">
+		select distinct p.* from exam_info e, problem_info p where
+		p.problem_seq = e.problem_seq and e.reg_id = #{reg_id} and
+		e.exam_test_no = #{exam_test_no}
 	</select>
-	
-	<select id="getoptionList" parameterType="hashmap" resultType="com.daou.pd.admin.problem.OptionVO">
-		select o.* from option_info o, exam_info e where o.option_seq in (
-		(select option1 from exam_info where reg_id = #{reg_id} and exam_test_no = #{exam_test_no} and problem_seq = #{problem_seq}),
-		(select option2 from exam_info where reg_id = #{reg_id} and exam_test_no = #{exam_test_no} and problem_seq = #{problem_seq}),
-		(select option3 from exam_info where reg_id = #{reg_id} and exam_test_no = #{exam_test_no} and problem_seq = #{problem_seq}),
-		(select option4 from exam_info where reg_id = #{reg_id} and exam_test_no = #{exam_test_no} and problem_seq = #{problem_seq})
-		) and e.problem_seq = #{problem_seq} and e.reg_id = #{reg_id} and e.exam_test_no = #{exam_test_no}
+
+	<select id="getoptionList" parameterType="hashmap"
+		resultType="com.daou.pd.admin.problem.OptionVO">
+		select o.* from option_info o, exam_info e where
+		o.option_seq in (
+		(select option1 from exam_info where reg_id =
+		#{reg_id} and exam_test_no = #{exam_test_no} and problem_seq =
+		#{problem_seq}),
+		(select option2 from exam_info where reg_id =
+		#{reg_id} and exam_test_no = #{exam_test_no} and problem_seq =
+		#{problem_seq}),
+		(select option3 from exam_info where reg_id =
+		#{reg_id} and exam_test_no = #{exam_test_no} and problem_seq =
+		#{problem_seq}),
+		(select option4 from exam_info where reg_id =
+		#{reg_id} and exam_test_no = #{exam_test_no} and problem_seq =
+		#{problem_seq})
+		) and e.problem_seq = #{problem_seq} and e.reg_id =
+		#{reg_id} and e.exam_test_no = #{exam_test_no}
 	</select>
-	<select id="getExamList" resultType="com.daou.pd.user.exam.ExamListVO">
-		select exam_test_no, date_format(s_date, '%Y-%m-%d') s_date, date_format(e_date, '%Y-%m-%d') e_date from exam_list order by exam_test_no desc
+	<select id="getExamList"
+		resultType="com.daou.pd.user.exam.ExamListVO">
+		select exam_test_no, date_format(s_date, '%Y-%m-%d')
+		s_date, date_format(e_date, '%Y-%m-%d') e_date from exam_list order by
+		exam_test_no desc
 	</select>
-	<select id="getQnum" parameterType="Integer" resultType="com.daou.pd.user.exam.ExamListVO">
-		select * from exam_list where exam_test_no = #{exam_test_no}
+	<select id="getQnum" parameterType="Integer"
+		resultType="com.daou.pd.user.exam.ExamListVO">
+		select * from exam_list where exam_test_no =
+		#{exam_test_no}
 	</select>
-	<select id="getExamStatus" resultType="String" parameterType="hashmap">
-		select distinct correct from exam_info where reg_id = #{reg_id} and exam_test_no = #{exam_test_no}
+	<select id="getExamStatus" resultType="String"
+		parameterType="hashmap">
+		select distinct correct from exam_info where reg_id =
+		#{reg_id} and exam_test_no = #{exam_test_no}
 	</select>
 </mapper>	 
