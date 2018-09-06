@@ -143,8 +143,7 @@ public class ExamController {
 
 	@RequestMapping(value = "user/exam/tempstrg")
 	public ModelAndView tempStorage(HttpServletRequest req) {
-		HttpSession session = req.getSession(false);
-		String id = (String) session.getAttribute("e_id");
+		getSessionId(req);
 //		String id = "90100"; // 테스트용 임시ID 변수
 		ModelAndView mav = new ModelAndView("user/exam/tempStrgResult");
 //		examService.tempRegist();
@@ -154,8 +153,7 @@ public class ExamController {
 	@RequestMapping(value = "/user/exam/regist.do")
 	@ResponseBody
 	public String regist(HttpServletRequest req, @RequestBody List<Map<String, Object>> list) {
-		HttpSession session = req.getSession(false);
-		String id = (String) session.getAttribute("e_id");
+		getSessionId(req);
 		System.out.println("1");
 		System.out.println(list);
 		for (Map<String, Object> map : list) {
@@ -165,5 +163,22 @@ public class ExamController {
 //		examService.mappingAnswer();
 
 		return "user/exam/exam";
+	}
+
+	@RequestMapping(value = "/user/exam/recordlist.do")
+	public ModelAndView getRecord(HttpServletRequest req, String degree) {
+		getSessionId(req);
+		ModelAndView mav = new ModelAndView();
+		examService.getExamPaper(id, Integer.parseInt(degree));
+		return mav;
+	}
+
+	private void grading() {
+
+	}
+
+	private void getSessionId(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		String id = (String) session.getAttribute("e_id");
 	}
 }

@@ -127,4 +127,9 @@ public class ExamServiceImpl implements ExamService {
 		return examMapper.getExamStatus(map);
 	}
 
+	@Override
+	public void getExamPaper(String id, int parseInt) {
+		
+	}
+
 }

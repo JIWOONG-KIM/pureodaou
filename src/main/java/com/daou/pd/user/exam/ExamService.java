@@ -37,4 +37,6 @@ public interface ExamService {
 	
 	public List<String> getExamStatus(HashMap<String, Object> map);
 
+	public void getExamPaper(String id, int parseInt);
+
 }
