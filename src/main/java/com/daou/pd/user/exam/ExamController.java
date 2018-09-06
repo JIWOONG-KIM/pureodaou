@@ -156,12 +156,15 @@ public class ExamController {
 		getSessionId(req);
 		System.out.println("1");
 		System.out.println(list);
-		for (Map<String, Object> map : list) {
-			Set<String> keys = map.keySet();
-			System.out.println(keys.toString());
-		}
+//		for (Map<String, Object> map : list) {
+//			Set<String> keys = map.keySet();
+//			System.out.println(keys.toString());
+//		}
 //		examService.mappingAnswer();
-
+//		int degree = (int)list.get(list.size()-1).get("type");
+		for (Map<String, Object> map : list) {
+			
+		}
 		return "user/exam/exam";
 	}
 
@@ -169,12 +172,12 @@ public class ExamController {
 	public ModelAndView getRecord(HttpServletRequest req, String degree) {
 		getSessionId(req);
 		ModelAndView mav = new ModelAndView();
-		examService.getExamPaper(id, Integer.parseInt(degree));
+
 		return mav;
 	}
 
-	private void grading() {
-
+	private void grading(int degree) {
+		examService.getExamPaper(id, degree);
 	}
 
 	private void getSessionId(HttpServletRequest req) {
