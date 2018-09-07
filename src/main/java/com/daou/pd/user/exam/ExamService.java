@@ -32,11 +32,13 @@ public interface ExamService {
 	public List<OptionVO> getExamOption(HashMap<String, Object> map);
 
 	public List<ExamListVO> getexamList();
-	
+
 	public ExamListVO getQnum(int degree);
-	
+
 	public List<String> getExamStatus(HashMap<String, Object> map);
 
 	public void getExamPaper(String id, int parseInt);
+
+	public void markAnswer(HashMap<String, Object> map);
 
 }

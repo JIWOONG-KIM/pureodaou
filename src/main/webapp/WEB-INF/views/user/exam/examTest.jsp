@@ -71,11 +71,12 @@ input[type=radio] {
 			data = new Object();
 			data['problem'] = $(this).attr('id');
 			data['answer'] = $(this).val();
+			data['degree'] = degree;
 			answer.push(data);
 		});
-		data = new Object();
+		/* data = new Object();
 		data['type'] = degree;
-		answer.push(data);
+		answer.push(data); */
 		var jsonEncode = JSON.stringify(answer);
 		 $.ajax({
 			url : '${pageContext.request.contextPath}/user/exam/regist.do',

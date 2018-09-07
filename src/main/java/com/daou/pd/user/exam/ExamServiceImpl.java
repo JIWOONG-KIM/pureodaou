@@ -129,7 +129,13 @@ public class ExamServiceImpl implements ExamService {
 
 	@Override
 	public void getExamPaper(String id, int parseInt) {
-		
+
+	}
+
+	@Override
+	public void markAnswer(HashMap<String, Object> map) {
+		examMapper = sqlSession.getMapper(ExamMapper.class);
+		examMapper.markAnswer(map);
 	}
 
 }

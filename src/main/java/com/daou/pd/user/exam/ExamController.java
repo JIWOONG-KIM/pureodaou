@@ -40,8 +40,7 @@ public class ExamController {
 
 	@RequestMapping(value = "/user/examStart.do")
 	public ModelAndView examStart(@RequestParam("degree") String str, HttpServletRequest req) {
-		HttpSession session = req.getSession(false);
-		String id = (String) session.getAttribute("e_id");
+		String id = getSessionId(req);
 //		String id = "90100";
 		int degree = Integer.parseInt(str);
 		ExamListVO listVO = examService.getQnum(degree);
@@ -69,8 +68,7 @@ public class ExamController {
 		int ox_num = Integer.parseInt(ox);
 		int obj_num = Integer.parseInt(obj);
 		req.setAttribute("degree", degree);
-		HttpSession session = req.getSession(false);
-		String id = (String) session.getAttribute("e_id");
+		String id = getSessionId(req);
 //		String id = "90100";
 
 		int cnt = examService.getPersence(id, degree);
@@ -120,8 +118,7 @@ public class ExamController {
 	@RequestMapping(value = "/user/exam/getExam.do")
 	public ModelAndView getExam(HttpServletRequest req) {// 아직 보기 순서 안섞임
 		int degree = (Integer) req.getAttribute("degree");
-		HttpSession session = req.getSession(false);
-		String id = (String) session.getAttribute("e_id");
+		String id = getSessionId(req);
 //		String id = "90100";
 		ModelAndView mav = new ModelAndView("user/exam/examTest");
 		List<ProblemVO> plist = examService.getExam(id, degree);
@@ -143,7 +140,7 @@ public class ExamController {
 
 	@RequestMapping(value = "user/exam/tempstrg")
 	public ModelAndView tempStorage(HttpServletRequest req) {
-		getSessionId(req);
+		String id = getSessionId(req);
 //		String id = "90100"; // 테스트용 임시ID 변수
 		ModelAndView mav = new ModelAndView("user/exam/tempStrgResult");
 //		examService.tempRegist();
@@ -152,25 +149,23 @@ public class ExamController {
 
 	@RequestMapping(value = "/user/exam/regist.do")
 	@ResponseBody
-	public String regist(HttpServletRequest req, @RequestBody List<Map<String, Object>> list) {
-		getSessionId(req);
-		System.out.println("1");
-		System.out.println(list);
-//		for (Map<String, Object> map : list) {
-//			Set<String> keys = map.keySet();
-//			System.out.println(keys.toString());
-//		}
-//		examService.mappingAnswer();
-//		int degree = (int)list.get(list.size()-1).get("type");
-		for (Map<String, Object> map : list) {
-			
+	public String regist(HttpServletRequest req, @RequestBody List<MarkVO> list) {
+		String id = getSessionId(req);
+		HashMap<String, Object> map = null;
+		for (MarkVO mVO : list) {
+			map = new HashMap<String, Object>();
+			map.put("reg_id", id);
+			map.put("problem", mVO.getProblem());
+			map.put("answer", mVO.getAnswer());
+			map.put("degree", mVO.getDegree());
+			examService.markAnswer(map);
 		}
 		return "user/exam/exam";
 	}
 
 	@RequestMapping(value = "/user/exam/recordlist.do")
 	public ModelAndView getRecord(HttpServletRequest req, String degree) {
-		getSessionId(req);
+		String id = getSessionId(req);
 		ModelAndView mav = new ModelAndView();
 
 		return mav;
@@ -180,8 +175,9 @@ public class ExamController {
 		examService.getExamPaper(id, degree);
 	}
 
-	private void getSessionId(HttpServletRequest req) {
+	private String getSessionId(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		String id = (String) session.getAttribute("e_id");
+		return id;
 	}
 }

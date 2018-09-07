@@ -27,8 +27,10 @@ public interface ExamMapper {
 	public List<OptionVO> getoptionList(HashMap<String, Object> map);
 
 	public List<ExamListVO> getExamList();
-	
+
 	public ExamListVO getQnum(int exam_test_no);
-	
+
 	public List<String> getExamStatus(HashMap<String, Object> map);
+
+	public void markAnswer(HashMap<String, Object> map);
 }

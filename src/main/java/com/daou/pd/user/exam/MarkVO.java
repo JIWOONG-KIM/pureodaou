@@ -1,23 +1,25 @@
 package com.daou.pd.user.exam;
 
 public class MarkVO {
-	private String problem;
+	private int problem;
 	private String answer;
+	private int degree;
 
 	public MarkVO() {
 	}
 
-	public MarkVO(String problem, String answer) {
+	public MarkVO(int problem, String answer, int degree) {
 		super();
 		this.problem = problem;
 		this.answer = answer;
+		this.degree = degree;
 	}
 
-	public String getProblem() {
+	public int getProblem() {
 		return problem;
 	}
 
-	public void setProblem(String problem) {
+	public void setProblem(int problem) {
 		this.problem = problem;
 	}
 
@@ -29,9 +31,17 @@ public class MarkVO {
 		this.answer = answer;
 	}
 
+	public int getDegree() {
+		return degree;
+	}
+
+	public void setDegree(int degree) {
+		this.degree = degree;
+	}
+
 	@Override
 	public String toString() {
-		return "MarkVO [problem=" + problem + ", answer=" + answer + "]";
+		return "MarkVO [problem=" + problem + ", answer=" + answer + ", degree=" + degree + "]";
 	}
 
 }

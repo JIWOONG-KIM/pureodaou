@@ -101,4 +101,8 @@
 		select distinct correct from exam_info where reg_id =
 		#{reg_id} and exam_test_no = #{exam_test_no}
 	</select>
+	<update id="markAnswer" parameterType="hashmap">
+			update exam_info set e_answer = #{answer}
+			where reg_id = #{reg_id} and exam_test_no = #{degree} and problem_seq = #{problem} 
+	</update>
 </mapper>	 
