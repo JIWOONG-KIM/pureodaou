@@ -39,6 +39,6 @@ public interface ExamService {
 
 	public void getExamPaper(String id, int parseInt);
 
-	public void markAnswer(HashMap<String, Object> map);
+	public int markAnswer(HashMap<String, Object> map);
 
 }

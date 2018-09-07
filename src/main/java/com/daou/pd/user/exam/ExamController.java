@@ -149,18 +149,28 @@ public class ExamController {
 
 	@RequestMapping(value = "/user/exam/regist.do")
 	@ResponseBody
-	public String regist(HttpServletRequest req, @RequestBody List<MarkVO> list) {
+	public ModelAndView regist(HttpServletRequest req, @RequestBody List<MarkVO> list) {
+		ModelAndView mav = new ModelAndView("user/exam/markResult");
 		String id = getSessionId(req);
 		HashMap<String, Object> map = null;
+		int cnt = 0;
 		for (MarkVO mVO : list) {
 			map = new HashMap<String, Object>();
 			map.put("reg_id", id);
 			map.put("problem", mVO.getProblem());
 			map.put("answer", mVO.getAnswer());
 			map.put("degree", mVO.getDegree());
-			examService.markAnswer(map);
+			int n = examService.markAnswer(map);
+			if (n > 0) {
+				cnt++;
+			}
 		}
-		return "user/exam/exam";
+		if (list.size() == cnt) {
+			mav.addObject("result", "success");
+		} else {
+			mav.addObject("result", "fail");
+		}
+		return mav;
 	}
 
 	@RequestMapping(value = "/user/exam/recordlist.do")

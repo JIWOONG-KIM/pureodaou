@@ -32,5 +32,5 @@ public interface ExamMapper {
 
 	public List<String> getExamStatus(HashMap<String, Object> map);
 
-	public void markAnswer(HashMap<String, Object> map);
+	public int markAnswer(HashMap<String, Object> map);
 }

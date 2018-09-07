@@ -86,7 +86,14 @@ input[type=radio] {
 			processData : true,
 			contentType :'application/json; charset=UTF-8',
 			success : function(data) {
-				alert('제출 되었습니다');
+				if(data=='success'){
+					alert('제출 성공했습니다');
+					location.href="${pageContext.request.contextPath}/"
+				}else if(data=='fail'){
+					alert('제출에 실패샜습니다 답안 수룰 확인햐주세요');
+				}else{
+					alert('오류');
+				}
 			},
 			error : function() {
 				alert('제출 실패');

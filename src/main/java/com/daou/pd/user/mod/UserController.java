@@ -17,8 +17,14 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value = "/")
-	public ModelAndView goUserLoginPage() {
-		ModelAndView mav = new ModelAndView("user/mod/userLogin");
+	public ModelAndView goUserLoginPage(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession(false);
+		if (session.getAttribute("e_id") == null) {
+			mav.setViewName("user/mod/userLogin");
+		} else {
+			mav.setViewName("user/mod/userMain");
+		}
 		return mav;
 	}
 

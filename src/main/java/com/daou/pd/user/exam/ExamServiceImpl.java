@@ -133,9 +133,9 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	@Override
-	public void markAnswer(HashMap<String, Object> map) {
+	public int markAnswer(HashMap<String, Object> map) {
 		examMapper = sqlSession.getMapper(ExamMapper.class);
-		examMapper.markAnswer(map);
+		return examMapper.markAnswer(map);
 	}
 
 }
